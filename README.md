@@ -1,2 +1,2 @@
 # tippzter
-Bet with your friends an colleague 
+Bet with your friends an colleagues 
