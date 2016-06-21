@@ -1,0 +1,104 @@
+ .mobile_hide {
+	display:none;
+}
+
+/* ********************************************* */
+/* ***************    INDEX     **************** */
+/* ********************************************* */
+
+.logowrapper {
+	height: 77px;
+}
+.logo h1 {
+	font-size: 40px;
+	margin-top: 9px;
+	text-align:center;
+	padding-left:0;
+}
+
+.info {
+	overflow:hidden;
+	margin-top: -43px;
+}
+
+#login {
+	z-index:10;
+	position:relative;
+
+	form {
+		margin-top:20px;
+	}
+
+	input {
+		width:265px !important;
+		margin-left: 10%;
+	}
+
+	.login_button {
+		margin-top: -57px;
+	}
+
+	.registrate_button {
+		width:90% !important;
+		margin-top:0;
+	}
+}
+.field {
+	background-image: url(../img/gameMob.png);
+	margin-top: -30px;
+	text-align:center;
+
+	.teaser {
+		width: 100%;
+	}
+}
+
+.info {
+	overflow:hidden;
+}
+
+.games {
+	text-align:center;
+}
+
+/* ********************************************* */
+/* **************    USER DASH    ************** */
+/* ********************************************* */
+
+.wrapper {
+	background-image: url(../img/gameMob.png);
+
+	h1 {
+		font-size: 50px !important;
+	}
+}
+
+#check {
+	width: 100%;
+}
+
+/* ********************************************* */
+/* ************    TEAM GROUPS    ************** */
+/* ********************************************* */
+
+.group {
+	.games {
+		padding-left: 0;
+	}
+
+	h3{
+		margin-top:10px;
+	}
+}
+
+.table1 {
+	margin: 0 auto;
+}
+.navbar-collapse{
+	position: absolute;
+	top: 52px;
+	height: 100vh;
+	width: 100%;
+	background-color: $petrol;
+	z-index: 50;
+}

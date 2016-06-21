@@ -1,0 +1,21 @@
+{
+  "name": "amadeus",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-autoprefixer": "^3.0.3",
+    "grunt-contrib-sass": "^0.9.2",
+    "grunt-contrib-uglify": "^0.11.0",
+    "grunt-contrib-watch": "^0.6.1"
+  },
+  "description": "site",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "matchdep": "^1.0.0"
+  },
+  "scripts": {
+    "test": "Hej"
+  },
+  "author": "Happy Pie",
+  "license": "ISC"
+}

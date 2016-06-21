@@ -1,0 +1,39 @@
+.tablet_hide {
+	display:none;
+}
+
+/* ********************************************* */
+/* ***************    INDEX     **************** */
+/* ********************************************* */
+
+.logo h1 {
+	font-size: 40px;
+	margin-top: 9px;
+}
+
+#login {
+	margin-top:-55px;
+}
+
+.field {
+	margin-top: -39px;
+
+	.teaser {
+		width: 100%;
+		text-align:center;
+	}
+}
+
+.info {
+	overflow:hidden;
+	margin-top: -43px;
+}
+
+.games {
+	float:left;
+}
+
+.today h1, .tomorrow h1 {
+	font-size: 30px;
+}
+
