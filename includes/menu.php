@@ -16,7 +16,7 @@
             <li><a href="user_dash.php">Dina grupper <!-- <span class="sr-only">(current)</span> --></a></li>
             <li><a href="team_groups.php">Grupper & Matcher</a></li>
             <li><a href="results.php">Resultat</a></li>
-            <li><a href="slutspel.php">Slutspel</a></li>
+            <!-- <li><a href="slutspel.php">Slutspel</a></li> -->
             <!-- <li><a href="create_group.php">Skapa grupper</a></li> -->
             <li><a href="spelregler.php">Spelregler</a></li>
         </ul>

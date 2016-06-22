@@ -410,10 +410,10 @@ th, td {
 .team_bet {
 	padding: 0 8px;
 
-	.toggleTr {
+	.toggleT, .s_toggleTr {
 		cursor:pointer;
 	}
-	.toggleTr:hover {
+	.toggleTr:hover, .s_toggleTr:hover {
 		background-color: #FDFDFD !important;
 	}
 }

@@ -27,6 +27,7 @@ while($row = mysqli_fetch_assoc($result3)) {
 		break;
 	}
 }
+
 $betsRows = array();
 
 $betsQuery = "SELECT bets.game_id, user_name, goal_home, goal_away FROM bets 
@@ -40,6 +41,23 @@ $betsResult = $db_connect->query($betsQuery);
 
 while ($betsRow = mysqli_fetch_row($betsResult)) {
 	$betsRows[] = $betsRow;
+}
+
+
+
+$slutspelbetsRows = array();
+
+$slutspelbetsQuery = "SELECT slutspel_bets.slutspel_id, user_name, goal_home, goal_away FROM slutspel_bets 
+						INNER JOIN (users, slutspel) 
+						ON (slutspel_bets.user_id = users.user_id AND slutspel_bets.slutspel_id = slutspel.slutspel_id) 
+						WHERE tournament_id = $tournament_id
+						AND game_date < DATE_SUB(NOW(), INTERVAL 10 MINUTE) 
+						ORDER BY slutspel_bets.slutspel_id, user_name ASC";
+
+$slutspelbetsResult = $db_connect->query($slutspelbetsQuery);
+
+while ($slutspelbetsRow = mysqli_fetch_row($slutspelbetsResult)) {
+	$slutspelbetsRows[] = $slutspelbetsRow;
 }
 
 ?>
@@ -238,6 +256,18 @@ while ($betsRow = mysqli_fetch_row($betsResult)) {
 			ON allGames.slutspel_id = slutspel_bets.slutspel_id
 			ORDER BY allGames.slutspel_id";
 
+		// $query1 = "SELECT bigtable.*, slutspel_result.result_goal_home, slutspel_result.result_goal_away FROM (SELECT allGames.*, slutspel_bets.goal_home, slutspel_bets.goal_away FROM 
+		// 	(SELECT T1.team_name AS team_home, T2.team_name AS team_away, T1.team_flag 
+		// 	AS home_flag, T2.team_flag AS away_flag, game_match.* 
+		// 	FROM game_match, teams T1, teams T2 
+		// 	WHERE T1.team_id=slutspel.home_team_id AND T2.team_id=slutspel.away_team_id) AS allGames 
+
+		// 	LEFT OUTER JOIN 
+		// 	(SELECT * FROM slutspel_bets 
+		// 	WHERE user_id = $user_id AND tournament_id = $tournament_id ) AS slutspel_bets 
+		// 	ON allGames.game_id = slutspel_bets.game_id
+		// 	ORDER BY allGames.game_id) AS bigtable LEFT JOIN (SELECT * FROM slutspel_result) as slutspel_result ON bigtable.game_id = results.game_id";
+
 
 		  // die($query1);
 
@@ -253,6 +283,8 @@ while ($betsRow = mysqli_fetch_row($betsResult)) {
 			$goal_home = $row["goal_home"];
 			$goal_away = $row["goal_away"];
 			$game_start = $row["game_date"];
+			// $result_goal_home = $row["result_goal_home"];
+			// $result_goal_away = $row["result_goal_away"];
 
 			$betOpen = hasDateExpired($game_start);
 
@@ -291,7 +323,7 @@ while ($betsRow = mysqli_fetch_row($betsResult)) {
 
 					
 					?>
-					<tr class="toggleTr" rel="<?php echo $game_id; ?>">
+					<tr class="s_toggleTr" rel="<?php echo $slutspel_id; ?>">
 						<td style="text-align:center;" class="locked"><?php echo date("d M H:i", strtotime($game_start));?></td>
 						<td style="text-align:right;" class="locked mobile_hide"><?php echo $home_name;?>
 						<td style="text-align:center;" class="locked"><img class="flag" src="img/<?php echo $home_flag; ?>" /></td>
@@ -301,14 +333,14 @@ while ($betsRow = mysqli_fetch_row($betsResult)) {
 						<td style="text-align:center;" class="locked" colspan="3"><?php echo $goal_home; ?> - <?php echo $goal_away; ?></td>
 						<td style="text-align:center;" class="locked">Resultat </br>(<?php echo $result_goal_home; ?> - <?php echo $result_goal_away; ?>)</td>
 					</tr>
-					<tr class="togglable" id="togglable_<?php echo $game_id; ?>" style="display:none;background-color:#E6E86C">
+					<tr class="s_togglable" id="s_togglable_<?php echo $slutspel_id; ?>" style="display:none;background-color:#E6E86C">
 					
 						<td colspan="10">
 							<table width="100%" >
 									<?php
-										foreach ($betsRows as $key => $value) {
+										foreach ($slutspelbetsRows as $key => $value) {
 											//print_r($key);
-											if($value[0] == $game_id){
+											if($value[0] == $slutspel_id){
 												?>
 												<tr>
 													<td style="text-align:left;">
