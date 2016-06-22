@@ -21,6 +21,18 @@
 			</ul>
 			<p>Med detta system kan man få som max 20p/match</p>
 
+			<h3>Poäng Slutspel</h3>
+			<p>OBS OBS!!! Poängen fördelas när HELA matchen har spelats, inklusive eventuell förlängning och straffar. </br>Det betyder att man inte kan (bör) betta oavgjort resultat.
+			<ul>
+				<li>30p för rätt vinnare</li>
+				</br>
+				<li>10p för rätt antal hemma-mål</li>
+				<li>10p för rätt antal borta-mål</li>
+				</br>
+		
+			</ul>
+			<p>Med detta system kan man få som max 50p/slutspelsmatch</p>
+
 		</div>
 	</div>
 </div>

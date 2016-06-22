@@ -213,15 +213,18 @@ while ($betsRow = mysqli_fetch_row($betsResult)) {
 
 						</td>
 					</tr>
-				<?php } 
+				<?php } //slut på else
 				$counter++;
 		} // end while 
 		?>
 			</tbody>
 		</table>
+		</br>
+		<h1 style="padding-top: 20px;">Slutspelsmatcher</h1>
 			<?php 
 
 		/* REGISTRERING AV SLUTSPELRESULTAT */
+
 
 		$query1 = "SELECT allGames.*, slutspel_bets.goal_home, slutspel_bets.goal_away FROM 
 			(SELECT T1.team_name AS team_home, T2.team_name AS team_away, T1.team_flag 
@@ -256,45 +259,83 @@ while ($betsRow = mysqli_fetch_row($betsResult)) {
 			?>
 			
 			<!-- <div class="bet_boxes"> -->
-			<h4>Slutspelsmatcher</h4>
+			
 			<table class="table1 col-sm-12">
 				<tbody>
 
 				<?php 
 				if($betOpen){ 
-					?>
-					<!-- YOU CAN BET -->
-					<tr id="slutBetGames" class="slutBetGames">
-						<td style="text-align:right; width:100px;"><?php echo date("d M H:i", strtotime($game_start));?></td>
-						<td class="mobile_hide" style="text-align:right;"><?php echo $home_name;?>
-						<td  style="text-align:center;"><img class="flag" src="img/<?php echo $home_flag; ?>" /></td>
-						<td  style="text-align:center;"> VS 
-						<td ><img class="flag" src="img/<?php echo $away_flag; ?>" />
-						<td  class="mobile_hide" style="text-align:left;";><?php echo $away_name;?></td>
-						<td ><input class="goal_home" original="<?php echo $goal_home; ?>" type="number" gameID="<?php echo $slutspel_id; ?>" value="<?php echo $goal_home; ?>" /></td>
-						<td>-</td>
-						<td ><input class="goal_away" original="<?php echo $goal_away; ?>" type="number" gameID="<?php echo $slutspel_id; ?>" value="<?php echo $goal_away; ?>"/></td><br/>
-						<td><input class="slutspel_id" type="hidden" name="game_id[]" value="<?php echo $slutspel_id; ?>" /></td>
-						<td class="error">Du måste fylla i båda fälten</td>
-					</tr>
-					<?php 
+				?>
+				<!-- YOU CAN BET -->
+				<tr id="betGames" class="betGames">
+					<td style="text-align:center;"><?php echo date("d M H:i", strtotime($game_start));?></td>
+					<td class="mobile_hide" style="text-align:right;"><?php echo $home_name;?></td>
+					<td style="text-align:center;"><img class="flag" src="img/<?php echo $home_flag; ?>" /></td>
+					<td style="text-align:center;"> VS </td>
+					<td style="text-align:center;" ><img class="flag" src="img/<?php echo $away_flag; ?>" />
+					<td style="text-align:left;" class="mobile_hide"><?php echo $away_name;?></td>
+					<td style="text-align:right;"><input class="goal_home" original="<?php echo $goal_home; ?>" type="number" gameID="<?php echo $game_id; ?>" value="<?php echo $goal_home; ?>" /></td>
+					<td style="text-align:center;">-</td>
+					<td style="text-align:left;"><input class="goal_away" original="<?php echo $goal_away; ?>" type="number" gameID="<?php echo $game_id; ?>" value="<?php echo $goal_away; ?>"/></td>
+					<td>
+						<div class="error">
+							Du måste fylla i båda fälten
+						</div>
+						
+						<input class="game_id" type="hidden" name="game_id[]" value="<?php echo $game_id; ?>" />
+					</td>
+				</tr>
+				<?php 
 				}
-				else{ ?>
-					<tr>
-						<td style="padding-left: 38px;" class="locked"><?php echo date("d M H:i", strtotime($game_start));?></td>
+				else{ 
+
+					
+					?>
+					<tr class="toggleTr" rel="<?php echo $game_id; ?>">
+						<td style="text-align:center;" class="locked"><?php echo date("d M H:i", strtotime($game_start));?></td>
 						<td style="text-align:right;" class="locked mobile_hide"><?php echo $home_name;?>
-						<td  style="text-align:center;" class="locked"><img class="flag" src="img/<?php echo $home_flag; ?>" /></td>
-						<td  style="text-align:center;" class="locked"> VS 
-						<td  style="text-align:left;"class="locked"><img class="flag" src="img/<?php echo $away_flag; ?>" />
+						<td style="text-align:center;" class="locked"><img class="flag" src="img/<?php echo $home_flag; ?>" /></td>
+						<td style="text-align:center;" class="locked"> VS </td>
+						<td style="text-align:center;" class="locked"><img class="flag" src="img/<?php echo $away_flag; ?>" /></td>
 						<td style="text-align:left;" class="locked mobile_hide"><?php echo $away_name;?></td>
-						<td class="locked"><?php echo $goal_home; ?> - <?php echo $goal_away; ?></td><br/>
-						<td class="locked">Slutresultat ( <?php echo $result_goal_home; ?> - <?php echo $result_goal_away; ?> )</td>
-						
-						<td></td>
-						
-						
+						<td style="text-align:center;" class="locked" colspan="3"><?php echo $goal_home; ?> - <?php echo $goal_away; ?></td>
+						<td style="text-align:center;" class="locked">Resultat </br>(<?php echo $result_goal_home; ?> - <?php echo $result_goal_away; ?>)</td>
 					</tr>
-				<?php } ?>
+					<tr class="togglable" id="togglable_<?php echo $game_id; ?>" style="display:none;background-color:#E6E86C">
+					
+						<td colspan="10">
+							<table width="100%" >
+									<?php
+										foreach ($betsRows as $key => $value) {
+											//print_r($key);
+											if($value[0] == $game_id){
+												?>
+												<tr>
+													<td style="text-align:left;">
+														<?php
+															echo $value[1];
+														?>
+													</td>
+													<td style="text-align:right;">
+														<?php
+															echo $value[2];
+														?>
+														-
+														<?php
+															echo $value[3];
+														?>
+													</td>
+												</tr>
+												<?php
+											}
+										}
+										//print_r($betsRows);
+									?>
+							</table>
+
+						</td>
+					</tr>
+				<?php } //slut på else ?>
 			</tbody>
 		</table><?php 
 		} // end while ?>

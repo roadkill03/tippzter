@@ -290,20 +290,20 @@ function slutspelPoints($user_id, $tournament_id) {
   		
 	  			
 	  		if($row["goal_home"] == $row["result_goal_home"]) {
-	  			$slutspel_points = $slutspel_points + 5;		
+	  			$slutspel_points = $slutspel_points + 10;		
 	  		}
 	  		if($row["goal_away"] == $row["result_goal_away"]) {
-	  			$slutspel_points = $slutspel_points + 5;
+	  			$slutspel_points = $slutspel_points + 10;
 	  		}
 		  	
 	  		if($row["goal_away"] < $row["goal_home"] && $row["result_goal_away"] < $row["result_goal_home"]) {
-				$slutspel_points = $slutspel_points + 10;  			
+				$slutspel_points = $slutspel_points + 30;  			
 	  		}
 	  		else if($row["goal_away"] > $row["goal_home"] && $row["result_goal_away"] > $row["result_goal_home"]) {
-	  			$slutspel_points = $slutspel_points + 10;	
+	  			$slutspel_points = $slutspel_points + 30;	
 	  		}
 	  		else if($row["goal_home"] == $row["goal_away"] && $row["result_goal_home"] == $row["result_goal_away"]) {
-	  			$slutspel_points = $slutspel_points + 10;
+	  			$slutspel_points = $slutspel_points + 30;
 		  	}
   		
   		
