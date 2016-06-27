@@ -48,10 +48,14 @@ $(document).ready(function(){
 
 	    });
 	}
+
+
 	var tour_id = $('#tour_id').val()
+
  	$('#check').click(function(){
 	    check_values();
 	    slut_check_values();
+
 	    if(post_values.length > 0) {
 		    $.ajax({
 		        type:"post",
@@ -66,6 +70,7 @@ $(document).ready(function(){
 	   		});
 		}
 		if(slut_post_values.length > 0){
+			
 		    $.ajax({
 		        type:"post",
 		        url:"includes/save_slut_spel.php",

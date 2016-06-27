@@ -243,8 +243,7 @@ while ($slutspelbetsRow = mysqli_fetch_row($slutspelbetsResult)) {
 
 		/* REGISTRERING AV SLUTSPELRESULTAT */
 
-
-		$query1 = "SELECT allGames.*, slutspel_bets.goal_home, slutspel_bets.goal_away FROM 
+		$query1 = "SELECT bigtable.*, slutspel_result.result_goal_home, slutspel_result.result_goal_away FROM (SELECT allGames.*, slutspel_bets.goal_home, slutspel_bets.goal_away FROM 
 			(SELECT T1.team_name AS team_home, T2.team_name AS team_away, T1.team_flag 
 			AS home_flag, T2.team_flag AS away_flag, slutspel.* 
 			FROM slutspel, teams T1, teams T2 
@@ -254,19 +253,7 @@ while ($slutspelbetsRow = mysqli_fetch_row($slutspelbetsResult)) {
 			(SELECT * FROM slutspel_bets 
 			WHERE user_id = $user_id AND tournament_id = $tournament_id ) AS slutspel_bets 
 			ON allGames.slutspel_id = slutspel_bets.slutspel_id
-			ORDER BY allGames.slutspel_id";
-
-		// $query1 = "SELECT bigtable.*, slutspel_result.result_goal_home, slutspel_result.result_goal_away FROM (SELECT allGames.*, slutspel_bets.goal_home, slutspel_bets.goal_away FROM 
-		// 	(SELECT T1.team_name AS team_home, T2.team_name AS team_away, T1.team_flag 
-		// 	AS home_flag, T2.team_flag AS away_flag, game_match.* 
-		// 	FROM game_match, teams T1, teams T2 
-		// 	WHERE T1.team_id=slutspel.home_team_id AND T2.team_id=slutspel.away_team_id) AS allGames 
-
-		// 	LEFT OUTER JOIN 
-		// 	(SELECT * FROM slutspel_bets 
-		// 	WHERE user_id = $user_id AND tournament_id = $tournament_id ) AS slutspel_bets 
-		// 	ON allGames.game_id = slutspel_bets.game_id
-		// 	ORDER BY allGames.game_id) AS bigtable LEFT JOIN (SELECT * FROM slutspel_result) as slutspel_result ON bigtable.game_id = results.game_id";
+			ORDER BY allGames.slutspel_id) AS bigtable LEFT JOIN (SELECT * FROM slutspel_result) as slutspel_result ON bigtable.slutspel_id = slutspel_result.slutspel_id";
 
 
 		  // die($query1);
@@ -283,8 +270,8 @@ while ($slutspelbetsRow = mysqli_fetch_row($slutspelbetsResult)) {
 			$goal_home = $row["goal_home"];
 			$goal_away = $row["goal_away"];
 			$game_start = $row["game_date"];
-			// $result_goal_home = $row["result_goal_home"];
-			// $result_goal_away = $row["result_goal_away"];
+			$result_goal_home = $row["result_goal_home"];
+			$result_goal_away = $row["result_goal_away"];
 
 			$betOpen = hasDateExpired($game_start);
 
@@ -299,22 +286,22 @@ while ($slutspelbetsRow = mysqli_fetch_row($slutspelbetsResult)) {
 				if($betOpen){ 
 				?>
 				<!-- YOU CAN BET -->
-				<tr id="betGames" class="betGames">
+				<tr id="betGames" class="slutBetGames">
 					<td style="text-align:center;"><?php echo date("d M H:i", strtotime($game_start));?></td>
 					<td class="mobile_hide" style="text-align:right;"><?php echo $home_name;?></td>
 					<td style="text-align:center;"><img class="flag" src="img/<?php echo $home_flag; ?>" /></td>
 					<td style="text-align:center;"> VS </td>
 					<td style="text-align:center;" ><img class="flag" src="img/<?php echo $away_flag; ?>" />
 					<td style="text-align:left;" class="mobile_hide"><?php echo $away_name;?></td>
-					<td style="text-align:right;"><input class="goal_home" original="<?php echo $goal_home; ?>" type="number" gameID="<?php echo $game_id; ?>" value="<?php echo $goal_home; ?>" /></td>
+					<td style="text-align:right;"><input class="goal_home" original="<?php echo $goal_home; ?>" type="number" gameID="<?php echo $slutspel_id; ?>" value="<?php echo $goal_home; ?>" /></td>
 					<td style="text-align:center;">-</td>
-					<td style="text-align:left;"><input class="goal_away" original="<?php echo $goal_away; ?>" type="number" gameID="<?php echo $game_id; ?>" value="<?php echo $goal_away; ?>"/></td>
+					<td style="text-align:left;"><input class="goal_away" original="<?php echo $goal_away; ?>" type="number" gameID="<?php echo $slutspel_id; ?>" value="<?php echo $goal_away; ?>"/></td>
 					<td>
 						<div class="error">
 							Du måste fylla i båda fälten
 						</div>
 						
-						<input class="game_id" type="hidden" name="game_id[]" value="<?php echo $game_id; ?>" />
+						<input class="slutspel_id" type="hidden" name="slutspel_id[]" value="<?php echo $slutspel_id; ?>" />
 					</td>
 				</tr>
 				<?php 
